@@ -2,7 +2,7 @@
 
 ### Summarize
 
-J-R-T is a virtual assistant that interacts with the user through commands or voice.
+Matplotlib is a very useful library for data visualization in Python. With it, we can create different types of charts to analyze and present our data in a clear and concise way.
 
 Entre sus funcionalidades incluye:
 
