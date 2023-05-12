@@ -4,7 +4,7 @@
 
 Matplotlib is a very useful library for data visualization in Python. With it, we can create different types of charts to analyze and present our data in a clear and concise way.
 
-Entre sus funcionalidades incluye:
+Its functionalities include:
 
 * bar chart
 * histogram
@@ -14,7 +14,6 @@ Entre sus funcionalidades incluye:
 * Box-and-whisker plots
 * area diagrams
 
-*
 ### Problematic
 Matplotlib solves a wide variety of problems: 
 
@@ -23,17 +22,16 @@ Matplotlib solves a wide variety of problems:
 * make it easy to create high-quality visualizations
 * make it easy to communicate insights from data to others.
 
-*
 ### Installation
 
 
 pip install matplotlib 
 
-*
+
 ### Usage
 python file.py
 
-*
+
 ### Resources
 
 The libraries that will be used for the project are:
@@ -51,7 +49,7 @@ activate the virtual environment
 Install the necesary libraries
 >pipenv install -r requierements.txt
 
-**
+
 
 ###Developers*
 
