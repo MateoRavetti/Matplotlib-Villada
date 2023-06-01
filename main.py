@@ -1,84 +1,95 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
-import tkinter as tk
 
-# Generar datos de ejemplo
-x = np.linspace(-5, 5, 100)
-y1 = np.sin(x)
-y2 = np.cos(x)
-y3 = np.tan(x)
+# Función para trazar un gráfico de línea
+def plot_line(x, y):
+    plt.plot(x, y)
+    plt.xlabel('x')
+    plt.ylabel('y')
+    plt.title('Gráfico de Línea')
+    plt.show()
 
-# Crear la lista de gráficos
-figs = []
+# Función para trazar un gráfico de dispersión
+def plot_scatter(x, y):
+    plt.scatter(x, y)
+    plt.xlabel('x')
+    plt.ylabel('y')
+    plt.title('Gráfico de Dispersión')
+    plt.show()
 
-# Gráfico 1
-fig1, ax1 = plt.subplots()
-ax1.plot(x, y1)
-ax1.set_title('Gráfico de seno')
-figs.append(fig1)
 
-# Gráfico 2
-fig2, ax2 = plt.subplots()
-ax2.plot(x, y2)
-ax2.set_title('Gráfico de coseno')
-figs.append(fig2)
+# Función para trazar un gráfico de barras
+def plot_bar(x, y):
+    plt.bar(x, y)
+    plt.xlabel('Categorías')
+    plt.ylabel('Valores')
+    plt.title('Gráfico de Barras')
+    plt.show()
 
-# Gráfico 3
-fig3, ax3 = plt.subplots()
-ax3.plot(x, y3)
-ax3.set_title('Gráfico de tangente')
-figs.append(fig3)
+# Función para trazar un gráfico de torta
+def plot_pie(labels, sizes):
+    explode = [0.1] * len(labels)
+    plt.pie(sizes, explode=explode, labels=labels, autopct='%1.1f%%', startangle=90)
+    plt.axis('equal')
+    plt.title('Gráfico de Torta')
+    plt.show()
 
-# Índice del gráfico actual
-current_fig = 0
 
-# Crear la ventana principal
-root = tk.Tk()
-root.title('Visualización Interactiva')
-root.geometry('800x600')
+def main():
+    print("Bienvenido a la Demostración Interactiva de Matplotlib!")
+    while True:
+        print("1. Gráfico de Línea")
+        print("2. Gráfico de Dispersión")
+        print("3. Gráfico de Barras")
+        print("4. Gráfico de Torta")
+        print("5. Salir")
+        choice = input("Ingrese el número correspondiente a la función que desea visualizar (o 5 para salir): ")
 
-# Función para cambiar el título del gráfico actual
-def set_title(title):
-    global figs, current_fig, canvas
-    # Cambiar el título del gráfico actual
-    figs[current_fig].axes[0].set_title(title)
-    # Actualizar la ventana
-    canvas.draw()
-    root.title('Visualización Interactiva - Gráfico {}'.format(current_fig + 1))
+        if choice == '1':
+            # Se solicitan los valores de x e y al usuario
+            x = input("Ingrese los valores de x (separados por comas): ")
+            y = input("Ingrese los valores de y (separados por comas): ")
+            # Los valores de x e y se convierten en arrays de NumPy con el tipo de datos float
+            x = np.array(x.split(','), dtype=float)
+            y = np.array(y.split(','), dtype=float)
+            # Se llama a la función plot_line para trazar el gráfico de línea
+            plot_line(x, y)
+        elif choice == '2':
+            # Se solicitan los valores de x e y al usuario
+            x = input("Ingrese los valores de x (separados por comas): ")
+            y = input("Ingrese los valores de y (separados por comas): ")
+            # Los valores de x e y se convierten en arrays de NumPy con el tipo de datos float
+            x = np.array(x.split(','), dtype=float)
+            y = np.array(y.split(','), dtype=float)
+            # Se llama a la función plot_scatter para trazar el gráfico de dispersión
+            plot_scatter(x, y)
+        elif choice == '3':
+             # Se solicitan las categorías y los valores al usuario 
+            x = input("Ingrese las categorías (separadas por comas): ")
+            y = input("Ingrese los valores (separados por comas): ")
+            # Las categorías se mantienen como strings y los valores se convierten en un array de NumPy con el tipo de datos float
+            x = np.array(x.split(','), dtype=str)
+            y = np.array(y.split(','), dtype=float)
+            # Se llama a la función plot_bar para trazar el gráfico de barras
+            plot_bar(x, y)
+        elif choice == '4':
+            # Se solicitan las etiquetas y los tamaños al usuario
+            labels = input("Ingrese las etiquetas (separadas por comas): ")
+            sizes = input("Ingrese los tamaños (separados por comas): ")
+            # Las etiquetas se mantienen como una lista y los tamaños se convierten en un array de NumPy con el tipo de datos float
+            labels = labels.split(',')  
+            sizes = np.array(sizes.split(','), dtype=float)
+            # Se llama a la función plot_pie para trazar el gráfico de torta
+            plot_pie(labels, sizes)
+        elif choice == '5':
+            # Si se selecciona '5', se sale del bucle y se termina el programa
+            break
+        else:
+            print("Opción inválida. Por favor, ingrese un número válido del 1 al 5.")
 
-# Crear el objeto FigureCanvasTkAgg para mostrar el gráfico en la ventana
-canvas = FigureCanvasTkAgg(figs[current_fig], master=root)
-canvas.get_tk_widget().pack(side=tk.TOP, fill=tk.BOTH, expand=True)
+        answer = input("¿Desea realizar otra operación? (Sí/No): ")
+        if answer.lower() != 'sí' and answer.lower() != 'si':
+            break
 
-def switch_fig(event):
-    global current_fig
-    if event.keysym == 'Right':
-        current_fig = (current_fig + 1) % len(figs)
-    elif event.keysym == 'Left':
-        current_fig = (current_fig - 1) % len(figs)
-    
-    # Actualizar el gráfico mostrado en la ventana
-    canvas.figure = figs[current_fig]
-    canvas.draw()
-    root.title('Visualización Interactiva - Gráfico {}'.format(current_fig + 1))
-
-root.bind('<Key>', switch_fig)
-
-# Mostrar el primer gráfico
-root.title('Visualización Interactiva - Gráfico {}'.format(current_fig + 1))
-
-# Crear un campo de texto para ingresar el título del gráfico actual
-title_entry = tk.Entry(master=root)
-title_entry.pack(side=tk.LEFT, padx=10)
-
-# Función para cambiar el título del gráfico actual
-def update_title():
-    title = title_entry.get()
-    set_title(title)
-
-# Crear un botón para actualizar el título
-title_button = tk.Button(master=root, text='Cambiar título', command=update_title)
-title_button.pack(side=tk.LEFT, padx=10)
-
-root.mainloop()
+if __name__ == "__main__":
+    main()
