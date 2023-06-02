@@ -7,12 +7,9 @@ Matplotlib is a very useful library for data visualization in Python. With it, w
 Its functionalities include:
 
 * bar chart
-* histogram
-* sector diagrams
-* color maps
-* line diagrams
-* Box-and-whisker plots
-* area diagrams
+* Line Graph
+* Scatter plot
+* Pie Chart 
 
 ### Problematic
 Matplotlib solves a wide variety of problems: 
@@ -35,7 +32,8 @@ python file.py
 ### Resources
 
 The libraries that will be used for the project are:
-
+*numpy.py
+*matplotlib
 
 
 Activar entorno virtual
